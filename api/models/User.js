@@ -1,28 +1,32 @@
 /**
-* User.js
-*
-* @description :: TODO: You might write a short summary of how this model works and what it represents here.
-* @docs        :: http://sailsjs.org/#!documentation/models
-*/
+ * User
+ *
+ * @module      :: Model
+ * @description :: This is the base user model
+ * @docs        :: http://waterlock.ninja/documentation
+ */
 
 module.exports = {
 
-  attributes: {
-	name:{
-		type:"string", 
-		required:true,
-		minLength: 2
+  attributes: require('waterlock').models.user.attributes({
+    
+    /* e.g.
+    nickname: 'string'
+    */
+    attempts: {
+	  collection: 'attempt',
+	  via: 'user'
 	},
-	empnum:{
-		type:"string",
-		required:true,
-		unique: true
+	jsonWebTokens: {
+	  collection: 'jwt',
+	  via: 'owner'
 	},
-	email:{
-		type:"email",
-		required:true,
-		unique: true
+	auth:{
+	  model: 'auth'
 	}
-  }
+  
+  }),
+  
+  beforeCreate: require('waterlock').models.user.beforeCreate,
+  beforeUpdate: require('waterlock').models.user.beforeUpdate
 };
-
