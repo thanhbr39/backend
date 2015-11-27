@@ -12,34 +12,36 @@ var _utils = require('waterlock')._utils;
  * @docs        :: http://waterlock.ninja/documentation
  */
 module.exports = function(req, res, next) {
-  waterlock.validator.validateTokenRequest(req, function(err, user){
-    if(err){
-      return res.forbidden(err);  
-    }
-
-    // valid request
-    //next();
-  });
+  
   var token = _utils.allParams(req).access_token;
+
+  //sails.debug(token);
+  console.log('thanh ==asa= 12 ' + token);
 
   if(token){
     try{
+        console.log('000000000000');
+        console.log(config.jsonWebTokens.secret);
       // decode the token
       var _token = jwt.decode(token, config.jsonWebTokens.secret);
       
+      console.log('1111111');
+
       // set the time of the request
       var _reqTime = Date.now();
+
+      console.log('22222');
 
       // If token is expired
       if(_token.exp <= _reqTime){
         return res.forbidden('Your token is expired.');        
       }
-
+      console.log('22222');
       // If token is early
       if(_reqTime <= _token.nbf){
         return res.forbidden('This token is early.');
       }
-
+      console.log('22222');
       // If audience doesn't match
       if(config.jsonWebTokens.audience !== _token.aud){
         return res.forbidden('This token cannot be accepted for this domain.');
@@ -64,7 +66,7 @@ module.exports = function(req, res, next) {
         });
       });
     } catch(err){
-      return res.forbidden('Error processing your access token');
+      return res.forbidden(err);
     }
   }else{
     return res.forbidden('Access token not present.');

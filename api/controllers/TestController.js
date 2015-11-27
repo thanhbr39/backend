@@ -11,6 +11,9 @@ module.exports = {
 	},	
 	open:function(req,res){
 		return res.ok("This is open to all!!!");
+	},
+	jwt:function(req,res){
+		return res.ok("Yeah you are have json web token right? ");
 	}
 };
 

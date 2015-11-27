@@ -23,6 +23,9 @@ module.exports = {
 	},
 	auth:{
 	  model: 'auth'
+	},
+	use:{
+		collection: 'use'
 	}
   
   }),

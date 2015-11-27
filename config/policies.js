@@ -52,7 +52,8 @@ module.exports.policies = {
   * test controler
   ********************************/
   TestController: {
-    restricted:['sessionAuth'],
-    open:true
+    restricted:['sessionAuth'], // can access if user authenticated
+    open:true, // can access public
+    jwt: ['hasJsonWebToken'] // can access if user send a json web token
   }
 };

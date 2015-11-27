@@ -59,7 +59,7 @@ module.exports.waterlock = {
     secret: 'this is my secret',
     expiry:{
       unit: 'days',
-      length: '7'
+      length: '2'
     },
     audience: 'app name',
     subject: 'subject',
